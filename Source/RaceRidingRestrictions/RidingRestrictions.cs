@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Verse;
@@ -27,6 +28,12 @@ namespace RaceRidingRestrictions
         private static Type raceExtensionType;
         private static FieldInfo isFusionOfField;
 
+        // Big and Small's Sapient Animals / Sapient Mechanoids modules generate a humanlike race for every animal and
+        // mech, registered in HumanlikeAnimalGenerator.humanlikeAnimals (keyed by the humanlike race). They are ordinary
+        // races for blocking; the settings menu only hides them from its list unless the player chooses to see them.
+        private static bool sapientLookupReady;
+        private static IDictionary sapientAnimals;
+
         private static HashSet<string> Defaults
         {
             get
@@ -54,6 +61,17 @@ namespace RaceRidingRestrictions
         public static bool IsBlocked(ThingDef race)
         {
             return RidingRestrictionsMod.settings.Blocked(race.defName, InDefault(race));
+        }
+
+        public static bool IsSapientAnimal(ThingDef race)
+        {
+            if (!sapientLookupReady)
+            {
+                Type generator = GenTypes.GetTypeInAnyAssembly("BigAndSmall.HumanlikeAnimalGenerator");
+                sapientAnimals = generator?.GetField("humanlikeAnimals", BindingFlags.Public | BindingFlags.Static)?.GetValue(null) as IDictionary;
+                sapientLookupReady = true;
+            }
+            return sapientAnimals != null && sapientAnimals.Contains(race);
         }
 
         // The races a Big and Small combined race was built from, or null for an ordinary race.
