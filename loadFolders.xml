@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<loadFolders>
+	<v1.7>
+		<li>/</li>
+		<!-- The main DLL references Giddy-Up's types, so it only loads when Giddy-Up is active. -->
+		<li IfModActive="MemeGoddess.GiddyUp">1.7</li>
+		<!-- Mount Passengers is optional and its patches reference its DLL, so they sit in their own folder. -->
+		<li IfModActive="font.mountpassengers">1.7/Mods/MountPassengers</li>
+	</v1.7>
+</loadFolders>

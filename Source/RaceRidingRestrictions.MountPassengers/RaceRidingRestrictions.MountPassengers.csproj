@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Mount Passengers patches. Mount Passengers is optional, and this references its DLL, so loadFolders loads it
+       from its own folder only when Mount Passengers is active. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>RaceRidingRestrictions.MountPassengers</AssemblyName>
+    <RootNamespace>RaceRidingRestrictions.MountPassengersCompat</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <OutputPath>..\..\1.7\Mods\MountPassengers\Assemblies\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <DebugType>none</DebugType>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>E:\SteamLibrary\steamapps\workshop\content\294100\2009463077\1.7\Assemblies\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>E:\SteamLibrary\steamapps\common\RimWorld\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityStubs">
+      <HintPath>E:\SteamLibrary\steamapps\common\RimWorld\UnityStubs.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="MountPassengers">
+      <HintPath>E:\SteamLibrary\steamapps\workshop\content\294100\3756579512\1.7\Assemblies\MountPassengers.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <ProjectReference Include="..\RaceRidingRestrictions\RaceRidingRestrictions.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

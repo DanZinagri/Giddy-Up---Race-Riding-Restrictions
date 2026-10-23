@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+	<!--
+		The default list: races that cannot ride unless the player allows them in the mod settings.
+		- races: race ThingDef defNames. A race that is not loaded is skipped, and MayRequire works on each entry.
+		- A pawn counts as its current race, so a body gene that swapped it to a centaur counts whatever its xenotype.
+		- Big and Small's combined races (centaur with a tail, and so on) follow the races they are built from, so only
+		  the source races need listing.
+		- To extend the defaults, add another RaceRidingRestrictions.RidingRestrictionDef: all loaded lists are merged.
+		  To change or replace them, patch this def.
+		Ships with Big and Small's lower bodies that cannot sit on an animal. Every Big and Small - Centaurs Expanded
+		body swaps to BS_Centaur.
+	-->
+	<RaceRidingRestrictions.RidingRestrictionDef>
+		<defName>RaceRidingRestrictions_Default</defName>
+		<races>
+			<li MayRequire="RedMattis.BetterPrerequisites">BS_Centaur</li>
+			<li MayRequire="RedMattis.BetterPrerequisites">BS_Naga</li>
+			<li MayRequire="RedMattis.BetterPrerequisites">BS_Marlith</li>
+			<li MayRequire="RedMattis.BetterPrerequisites">BS_SpiderPersonRace</li>
+		</races>
+	</RaceRidingRestrictions.RidingRestrictionDef>
+
+</Defs>
