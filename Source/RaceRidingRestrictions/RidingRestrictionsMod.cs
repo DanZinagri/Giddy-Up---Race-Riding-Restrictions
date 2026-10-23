@@ -117,7 +117,9 @@ namespace RaceRidingRestrictions
             Dictionary<ThingDef, int> fusionsBuiltFrom = new Dictionary<ThingDef, int>();
             foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
             {
-                if (def.race == null || !def.race.Humanlike)
+                // Corpse defs carry their pawn's race properties, so they pass the humanlike test; they are items, not
+                // pawns (vanilla, Anomaly's unnatural corpses and Big and Small's generated corpses alike).
+                if (def.race == null || !def.race.Humanlike || def.category != ThingCategory.Pawn)
                 {
                     continue;
                 }
