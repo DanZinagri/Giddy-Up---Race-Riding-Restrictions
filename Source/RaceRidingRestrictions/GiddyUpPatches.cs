@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using GiddyUp;
 using HarmonyLib;
 using Verse;
@@ -39,9 +40,13 @@ namespace RaceRidingRestrictions
 
     // Raid, visitor and trader mount generation never consults the rider checks above. Hide blocked pawns from the
     // generator, then put them back so the incident still spawns them, on foot.
-    [HarmonyPatch(typeof(MountUtility), nameof(MountUtility.GenerateMounts))]
+    // MountUtility is internal in Giddy-Up's 1.6 build and public in its 1.7 one, so the two patches on it name the
+    // class as a string and the same source compiles for both.
+    [HarmonyPatch]
     public static class Patch_GenerateMounts
     {
+        public static MethodBase TargetMethod() => AccessTools.Method("GiddyUp.MountUtility:GenerateMounts");
+
         public static void Prefix(ref List<Pawn> list, out List<Pawn> __state)
         {
             __state = null;
@@ -89,9 +94,11 @@ namespace RaceRidingRestrictions
     // Backstop: everything that seats a rider ends in this private method, including paths that skip the checks
     // above (RimJoust mounts its visiting jousters straight through GoMount). A null animal means dismount and must
     // always go through.
-    [HarmonyPatch(typeof(MountUtility), "Mount")]
+    [HarmonyPatch]
     public static class Patch_Mount
     {
+        public static MethodBase TargetMethod() => AccessTools.Method("GiddyUp.MountUtility:Mount");
+
         public static bool Prefix(Pawn rider, Pawn animal)
         {
             return animal == null || !RidingRestrictions.CannotRide(rider);
